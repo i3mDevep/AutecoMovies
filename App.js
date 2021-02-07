@@ -1,21 +1,60 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default function App() {
+import { Provider as PaperProvider } from "react-native-paper";
+import MoviesList from "./src/app/screens/movies/moviesList";
+import MovilDetail from "./src/app/screens/movies/movieDetail";
+import SignIn from "./src/app/screens/signUp";
+import Favorites from "./src/app/screens/favorites";
+import { DarkTheme } from "react-native-paper";
+
+const Stack = createStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider theme={DarkTheme}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Movies"
+            options={{
+              headerShown: false,
+            }}
+            component={MoviesList}
+          />
+          <Stack.Screen
+            name="Details"
+            options={{
+              headerStyle: {
+                backgroundColor: "black",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "100",
+              },
+            }}
+            component={MovilDetail}
+          />
+          <Stack.Screen
+            name="Favorites"
+            options={{
+              headerShown: false,
+            }}
+            component={Favorites}
+          />
+          <Stack.Screen
+            name="SignIn"
+            options={{
+              headerShown: false,
+            }}
+            component={SignIn}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
